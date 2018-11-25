@@ -8,23 +8,10 @@ body {
     color: white;
 }
 
-h1 {
-    font-family: 'League Gothic', sans;
+h1, h2 {
+    font-family: 'Orbitron', sans;
     font-weight: normal;
     color: white;
-    text-align: left;
-}
-
-h2, h3, h4, h5, h6 {
-    font-family: sans;
-    font-weight: normal;
-}
-
-code {
-    background: hsla(0,0%,100%,0.1);
-    font-size: 0.8em;
-    padding: 3px;
-    border-radius: 3px;
 }
 
 a:link,
@@ -72,30 +59,63 @@ a:active {
 
 /* HEADER */
 
-#header {
+input[type="text"], input[type="password"] {
+    border: 0px;
+    border: 1px solid hsla(0, 0%, 100%, 0.3);
+    background: transparent;
+    margin-bottom: 15px;
     padding: 15px;
-    text-align: right;
 }
 
-#header h1 {
-    display: inline-block;
-    margin: 0px;
-    line-height: 1em;
-    padding: 15px;
-    color: hsla(0, 0%, 100%, 0.3);
+input[type="submit"] {
+    background: hsla(0, 0%, 100%, 0.1);
+    border: 1px solid hsla(0, 0%, 100%, 0.3);
+    box-shadow: 1px 1px 2px black;
 }
 
-#header h1:hover {
-    color: white;
+input[type="submit"]:hover {
+    background: hsla(0, 0%, 100%, 0.3);
+    box-shadow: 2px 2px 2px black;
 }
 
-
-/* SHELL */
-
-#shell {
-    margin: auto;
-    paddding: 15px;
+#root {
     max-width: 666px;
-    display: flex;
-    flex-direction: column;
+    margin: 100px auto;
+    text-align: center;
+}
+
+#root h1 {
+    text-align: center;
+}
+
+.item > span {
+    margin-right: 15px;
+}
+
+.item input {
+    display: none;
+}
+
+.item.wip:hover input {
+    display: inline;
+}
+
+.item.done {
+    opacity: 0.3;
+}
+
+#filters {
+    margin-bottom: 10px;
+}
+
+#filters > input {
+    opacity: 0.3;
+}
+
+#filters > input:hover {
+    opacity: 1;
+}
+
+#filters > input.active {
+    opacity: 1;
 }

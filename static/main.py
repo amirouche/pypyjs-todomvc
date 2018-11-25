@@ -1,6 +1,6 @@
-import json
 from uuid import uuid4
 
+# framework-ish stuff
 
 class BeyondException(Exception):
     pass
@@ -150,23 +150,90 @@ class PythonHTML(object):
 h = PythonHTML()
 
 
-counter = 0
+events = dict()
 
-
-def callback(event):
-    global counter
-    counter += 1
-
-
-def render():
+def send():
     global events
-    msg = 'counter is at: ' + str(counter)
-    html, new = serialize(h.div(on_click=callback)[h.p()[msg]])
+    html, new = serialize(render())
     events = new
     return html
 
-def on_event(event):
-    key = event['key']
-    callback = events[key]
+
+def recv(event):
+    callback = events[event['key']]
     callback(event)
-    return render()
+    return send()
+
+
+# application code
+
+
+class STATUS:
+    DONE = 'done'
+    WIP = 'wip'
+    ALL = 'all'
+
+class Todo:
+
+    def __init__(self, value):
+        self.value = value
+        self.status = STATUS.WIP
+
+
+models = dict(
+    filter=STATUS.ALL,
+    todos=[Todo('Learn Python')]
+)
+
+def on_value_change(event):
+    value = event['event']['target.value']
+    models['todos'].append(Todo(value))
+
+
+def on_done(todo):
+    def on_event(_):
+        todo.status = STATUS.DONE
+    return on_event
+
+
+def on_filter(value):
+    def on_event(_):
+        models['filter'] = value
+    return on_event
+
+
+def filter_button(value):
+    if models['filter'] == value:
+        return h.input(Class='active', type='submit', value=value)
+    else:
+        return h.input(Class='inactive', type='submit', value=value, on_click=on_filter(value))
+
+
+def render():
+    root = h.div(id='root')
+    root.append(h.h1()["todos"])
+    done = len(filter(lambda x: x.status == 'done', models['todos']))
+    count = float(len(models['todos']))
+    percent = (done / count) * 100
+    msg = "{:.2f}% complete!".format(percent)
+    root.append(h.h2()[msg])
+    filters = h.div(id='filters')
+    filters.append(filter_button('all'))
+    filters.append(filter_button('wip'))
+    filters.append(filter_button('done'))
+    root.append(filters)
+    root.append(h.input(type='text', on_change=on_value_change))
+    if models['filter'] == STATUS.ALL:
+        for todo in models['todos']:
+            item = h.div(Class='item ' + todo.status)
+            item.append(h.span()[todo.value])
+            item.append(h.input(type='submit', value='done', on_click=on_done(todo)))
+            root.append(item)
+    else:
+        for todo in models['todos']:
+            if todo.status == models['filter']:
+                item = h.div(Class='item ' + todo.status)
+                item.append(h.span()[todo.value])
+                item.append(h.input(type='submit', value='done', on_click=on_done(todo)))
+                root.append(item)
+    return root

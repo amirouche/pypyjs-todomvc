@@ -17,7 +17,7 @@ var recv = function(json) {
 }
 
 var send = function(event) {
-    pypyjs.eval('on_event(' + JSON.stringify(event) + ')')
+    pypyjs.eval('recv(' + JSON.stringify(event) + ')')
           .then(recv)
           .then(null, console.error);
 }
@@ -63,7 +63,7 @@ pypyjs.ready().then(function() {
                 pypyjs.exec(main)
                       .then(function() {
                           console.log('main.py loaded')
-                          pypyjs.eval('render()')
+                          pypyjs.eval('send()')
                                  .then(null, console.error)
                                  .then(recv);
                       })
