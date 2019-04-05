@@ -1,30 +1,22 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="theme-color" content="#000000">
-        <link href="static/normalize.css" rel="stylesheet" type="text/css">
-        <link href="static/main.css" rel="stylesheet" type="text/css">
-        <title>pypyjs todomvc</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/app.css">
+	<link rel="stylesheet" href="/css/index.css">
+	<title>PyPyJS Demo</title>
     </head>
     <body>
-        <noscript>
-            You need to enable JavaScript to run this app.
-        </noscript>
-        <div id="background">
-            <video autoplay loop poster="static/video/poster.jpeg">
-                <source src="static/video/space.ogv" type="video/ogg">
-            </video>
-        </div>
-        <div id="overlay">
-        </div>
-        <div id="root">
-            Loading in progress...
-        </div>
-        <script src="pypyjs-release/lib/Promise.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="pypyjs-release/lib/FunctionPromise.js" type="text/javascript" charset="utf-8"></script>
-        <script src="pypyjs-release/lib/pypyjs.js" type="text/javascript" charset="utf-8"></script>
-        <script src="static/main.js" type="module" charset="utf-8"></script>
+	<div id="root">
+	    Loading in progress...
+	</div>
+        <script src="helpers.js"></script>
+	<script src="pypyjs-release/lib/Promise.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="pypyjs-release/lib/FunctionPromise.js" type="text/javascript" charset="utf-8"></script>
+	<script src="pypyjs-release/lib/pypyjs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="main.js" type="module" charset="utf-8"></script>
     </body>
 </html>
