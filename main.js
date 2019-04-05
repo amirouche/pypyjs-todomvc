@@ -2,7 +2,6 @@ let ReactDOM = helpers.default.ReactDOM;
 let h = helpers.default.h;
 let Input = helpers.default.Input;
 
-console.log('Input', Input);
 
 let container = document.getElementById('root');
 
